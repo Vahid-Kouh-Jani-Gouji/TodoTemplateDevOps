@@ -45,7 +45,7 @@ jobs:
       run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid
 
     - name: Restore dependencies
-      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release
       
     - name: Build
       run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release
