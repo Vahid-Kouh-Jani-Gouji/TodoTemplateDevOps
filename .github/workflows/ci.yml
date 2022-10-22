@@ -7,11 +7,12 @@ on:
 
 jobs:
 
-  common-steps:
+  build-blazor-server:
 
     runs-on: ubuntu-latest
 
     steps:
+    
     - name: Checkout source code
       uses: actions/checkout@v3
     
@@ -20,12 +21,6 @@ jobs:
       with:
         dotnet-version: 7.0.x
         include-prerelease: true
-        
-  build-blazor-server:
-
-    runs-on: ubuntu-latest
-
-    steps:
 
     - name: Restore dependencies
       run: dotnet restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
