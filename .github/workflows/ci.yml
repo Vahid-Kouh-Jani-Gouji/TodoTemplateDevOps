@@ -26,7 +26,7 @@ jobs:
 
   build-blazor-hybrid-android:
     name: build blazor hybrid (android)
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     
