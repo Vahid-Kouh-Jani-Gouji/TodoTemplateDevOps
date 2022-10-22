@@ -28,7 +28,7 @@ jobs:
     steps:
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
       
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
