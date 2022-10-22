@@ -1,0 +1,3 @@
+﻿name: TodoTemplateDevOps.Iac
+runtime: dotnet
+description: TodoTemplateDevOps infrastructure as a code
