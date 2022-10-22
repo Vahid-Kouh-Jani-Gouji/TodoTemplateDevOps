@@ -44,14 +44,8 @@ jobs:
     - name: Restore workloads
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:TargetFramework=net7.0-android
 
-    - name: Restore shared dependencies
-      run: dotnet restore src/Client/Shared/TodoTemplateDevOps.Client.Shared.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0
-
-    - name: Restore app dependencies
-      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-android
-      
     - name: Build
-      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-android
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-android
 
   build-blazor-hybrid-windows:
     name: build blazor hybrid (windows)
@@ -70,14 +64,8 @@ jobs:
     - name: Restore workloads
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:TargetFramework=net7.0-windows10.0.19041
 
-    - name: Restore shared dependencies
-      run: dotnet restore src/Client/Shared/TodoTemplateDevOps.Client.Shared.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0
-
-    - name: Restore app dependencies
-      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-windows10.0.19041
-      
     - name: Build
-      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-windows10.0.19041
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-windows10.0.19041
 
   build-blazor-hybrid-iOS:
     name: build blazor hybrid (iOS)
@@ -96,14 +84,8 @@ jobs:
     - name: Restore workloads
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:TargetFramework=net7.0-ios
 
-    - name: Restore shared dependencies
-      run: dotnet restore src/Client/Shared/TodoTemplateDevOps.Client.Shared.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0
-
-    - name: Restore app dependencies
-      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-ios
-      
     - name: Build
-      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-ios
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-ios
 
   build-blazor-hybrid-maccatalyst:
     name: build blazor hybrid (maccatalyst)
@@ -121,12 +103,6 @@ jobs:
 
     - name: Restore workloads
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:TargetFramework=net7.0-maccatalyst
-
-    - name: Restore shared dependencies
-      run: dotnet restore src/Client/Shared/TodoTemplateDevOps.Client.Shared.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0
-
-    - name: Restore app dependencies
-      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-maccatalyst
       
     - name: Build
-      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-maccatalyst
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFramework=net7.0-maccatalyst
