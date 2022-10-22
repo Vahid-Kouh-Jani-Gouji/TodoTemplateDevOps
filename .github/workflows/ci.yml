@@ -22,7 +22,30 @@ jobs:
         global-json-file: src/global.json
 
     - name: Restore dependencies
-      run: dotnet restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
+      run: dotnet restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:Configuration=Release
       
     - name: Build
-      run: dotnet build --no-restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
+      run: dotnet build --no-restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:Configuration=Release
+
+  build-blazor-hybrid:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout source code
+      uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        global-json-file: src/global.json
+
+    - name: Restore workloads
+      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid
+
+    - name: Restore dependencies
+      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release
+      
+    - name: Build
+      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release
