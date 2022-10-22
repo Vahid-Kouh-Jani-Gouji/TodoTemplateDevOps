@@ -42,13 +42,13 @@ jobs:
         global-json-file: src/global.json
 
     - name: Restore workloads
-      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:TargetFrameworks=net7.0-android\;net7.0-windows10.0.19041
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:TargetFrameworks=net7.0-android;net7.0-windows10.0.19041
 
     - name: Restore dependencies
-      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFrameworks=net7.0-android\;net7.0-windows10.0.19041
+      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFrameworks=net7.0-android;net7.0-windows10.0.19041
       
     - name: Build
-      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFrameworks=net7.0-android\;net7.0-windows10.0.19041
+      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFrameworks=net7.0-android;net7.0-windows10.0.19041
 
   build-blazor-hybrid-iOS-mac:
     name: build blazor hybrid (iOS,mac)
