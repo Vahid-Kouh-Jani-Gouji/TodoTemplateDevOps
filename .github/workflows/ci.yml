@@ -8,7 +8,7 @@ on:
 jobs:
 
   build-blazor-server:
-
+    name: build blazor server
     runs-on: ubuntu-latest
 
     steps:
@@ -27,8 +27,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:Configuration=Release
 
-  build-blazor-hybrid:
-
+  build-blazor-hybrid-android-windows:
+    name: build blazor hybrid (android,windows)
     runs-on: windows-latest
 
     steps:
@@ -49,3 +49,26 @@ jobs:
       
     - name: Build
       run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFrameworks=net7.0-android;net7.0-windows10.0.19041
+
+  build-blazor-hybrid-iOS-mac:
+    name: build blazor hybrid (iOS,mac)
+    runs-on: macos-latest
+
+    steps:
+    
+    - name: Checkout source code
+      uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        global-json-file: src/global.json
+
+    - name: Restore workloads
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:TargetFrameworks=net7.0-ios;net7.0-maccatalyst
+
+    - name: Restore dependencies
+      run: dotnet restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFrameworks=net7.0-ios;net7.0-maccatalyst
+      
+    - name: Build
+      run: dotnet build --no-restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=Hybrid /P:Configuration=Release /P:TargetFrameworks=net7.0-ios;net7.0-maccatalyst
