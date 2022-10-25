@@ -85,7 +85,7 @@ jobs:
       run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:AndroidPackageFormat=aab /P:AndroidSigningKeyStore=TodoTemplate.keystore /P:AndroidSigningKeyAlias=TodoTemplate /P:AndroidSigningKeyPass="${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}" /P:AndroidSigningStorePass="${{ secrets.ANDROID_RELEASE_SIGNING_PASSWORD }}" -f net7.0-android
 
     - name: Upload artifact for deployment job
-    - uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
         name: bundles
         path: src/Client/App/bin/release/*-Signed.*
