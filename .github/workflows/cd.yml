@@ -59,9 +59,6 @@ jobs:
       with:
         global-json-file: src/global.json
 
-    - name: Restore workloads
-      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-android
-
     - name: Extract Android signing key from env
       uses: timheuer/base64-to-file@v1
       with:
@@ -69,11 +66,14 @@ jobs:
           encodedString: ${{ secrets.ANDROID_RELEASE_KEYSTORE }}
 
     - name: Update appsettings.json api server address
-      uses: jossef/action-set-json-field@v2
+      uses: microsoft/variable-substitution@v1 
       with:
-        file: src/Client/Shared/wwwroot/appsettings.json
-        field: ApiServerAddress
-        value: ${{ env.API_SERVER_ADDRESS }}
+        files: 'src/Client/Shared/wwwroot/appsettings.json'
+      env:
+        ApiServerAddress: ${{ env.API_SERVER_ADDRESS }}
+
+    - name: Restore workloads
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-android
 
     - name: Build (To generate CSS/JS files)
       run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:RunAOTCompilation=false -f net7.0-android
