@@ -7,30 +7,30 @@ on:
 
 jobs:
 
-  build-blazor-server:
-    name: build blazor server
-    runs-on: ubuntu-latest
+  #build-blazor-server:
+  #  name: build blazor server
+  #  runs-on: ubuntu-latest
 
-    steps:
+  #  steps:
     
-    - name: Checkout source code
-      uses: actions/checkout@v3
+  #  - name: Checkout source code
+  #    uses: actions/checkout@v3
     
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        global-json-file: src/global.json
+  #  - name: Setup .NET
+  #    uses: actions/setup-dotnet@v3
+  #    with:
+  #      global-json-file: src/global.json
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget
-          restore-keys: |
-            ${{ runner.os }}-nuget
+  #  - name: Cache dependencies
+  #    uses: actions/cache@v3
+  #    with:
+  #        path: ~/.nuget/packages
+  #        key: ${{ runner.os }}-nuget
+  #        restore-keys: |
+  #          ${{ runner.os }}-nuget
       
-    - name: Build
-      run: dotnet build src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:Configuration=Release
+  #  - name: Build
+  #    run: dotnet build src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:Configuration=Release
 
   #build-blazor-hybrid-android:
   #  name: build blazor hybrid (android)
@@ -88,33 +88,33 @@ jobs:
   #  - name: Build
   #    run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-windows10.0.19041
 
-  #build-blazor-hybrid-iOS:
-  #  name: build blazor hybrid (iOS)
-  #  runs-on: macos-12
+  build-blazor-hybrid-iOS:
+    name: build blazor hybrid (iOS)
+    runs-on: macos-12
 
-  #  steps:
+    steps:
     
-  #  - name: Checkout source code
-  #    uses: actions/checkout@v3
+    - name: Checkout source code
+      uses: actions/checkout@v3
     
-  #  - name: Setup .NET
-  #    uses: actions/setup-dotnet@v3
-  #    with:
-  #      global-json-file: src/global.json
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        global-json-file: src/global.json
 
-  #  - name: Cache dependencies
-  #    uses: actions/cache@v3
-  #    with:
-  #        path: ~/.nuget/packages
-  #        key: ${{ runner.os }}-nuget
-  #        restore-keys: |
-  #          ${{ runner.os }}-nuget
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget
+          restore-keys: |
+            ${{ runner.os }}-nuget
 
-  #  - name: Restore workloads
-  #    run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-ios
+    - name: Restore workloads
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-ios
 
-  #  - name: Build
-  #    run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-ios
+    - name: Build
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-ios
 
   #build-blazor-hybrid-maccatalyst:
   #  name: build blazor hybrid (maccatalyst)
