@@ -118,7 +118,7 @@ jobs:
       with:
         global-json-file: src/global.json
 
-    - name: switch to blazor wasm
+    - name: Switch to blazor wasm
       run:  sed -i 's/Microsoft.NET.Sdk.Web/Microsoft.NET.Sdk.BlazorWebAssembly/g' src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
 
     - name: Restore workloads
