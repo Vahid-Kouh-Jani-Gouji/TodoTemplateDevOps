@@ -62,11 +62,11 @@ jobs:
     - name: Restore workloads
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-android
 
-    #- name: Extract Android signing key from env
-    #  shell: bash
-    #  run: |
-    #    echo "${{ secrets.ANDROID_RELEASE_KEYSTORE }}" > src/Client/App/TodoTemplate.keystore.base64
-    #    base64 -d src/Client/App/TodoTemplate.keystore.base64 > src/Client/App/TodoTemplate.keystore
+    - name: Extract Android signing key from env
+      shell: bash
+      run: |
+        echo "${{ secrets.ANDROID_RELEASE_KEYSTORE }}" > src/Client/App/TodoTemplate.keystore.base64
+        base64 -d src/Client/App/TodoTemplate.keystore.base64 > src/Client/App/TodoTemplate.keystore
 
     #- name: Update appsettings.json api server address
     #  uses: jossef/action-set-json-field@v2
