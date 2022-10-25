@@ -68,12 +68,12 @@ jobs:
         echo "${{ secrets.ANDROID_RELEASE_KEYSTORE }}" > src/Client/App/TodoTemplate.keystore.base64
         base64 -d src/Client/App/TodoTemplate.keystore.base64 > src/Client/App/TodoTemplate.keystore
 
-    #- name: Update appsettings.json api server address
-    #  uses: jossef/action-set-json-field@v2
-    #  with:
-    #    file: src/Client/Shared/wwwroot/appsettings.json
-    #    field: ApiServerAddress
-    #    value: ${{ env.AZURE_WEBAPP_NAME }}
+    - name: Update appsettings.json api server address
+      uses: jossef/action-set-json-field@v2
+      with:
+        file: src/Client/Shared/wwwroot/appsettings.json
+        field: ApiServerAddress
+        value: ${{ env.AZURE_WEBAPP_NAME }}
 
     #- name: Build (To generate CSS/JS files)
     #  run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:RunAOTCompilation=false -f net7.0-android
