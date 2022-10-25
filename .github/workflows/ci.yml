@@ -42,7 +42,7 @@ jobs:
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-android
 
     - name: Build
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-android
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:RunAOTCompilation=false /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-android
 
   build-blazor-hybrid-windows:
     name: build blazor hybrid (windows)
