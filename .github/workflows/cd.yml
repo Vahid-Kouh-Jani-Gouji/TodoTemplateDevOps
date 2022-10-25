@@ -29,13 +29,13 @@ jobs:
       run:  sed -i 's/Microsoft.NET.Sdk.Web/Microsoft.NET.Sdk.BlazorWebAssembly/g' src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
 
     - name: Restore workloads
-      run: dotnet workload restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:BlazorMode=BlazorWebAssembly
+      run: dotnet workload restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType=SSR
       
     - name: Build (To generate CSS/JS files)
-      run: dotnet build src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:Configuration=Release
+      run: dotnet build src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType=SSR /P:Configuration=Release
 
     - name: Publish
-      run: dotnet publish src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:Configuration=Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType=SSR /P:Configuration=Release -o ${{env.DOTNET_ROOT}}/myapp
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
