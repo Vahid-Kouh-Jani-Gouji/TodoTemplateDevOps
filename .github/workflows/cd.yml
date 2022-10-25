@@ -63,10 +63,10 @@ jobs:
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-android
 
     - name: Extract Android signing key from env
-      shell: bash
-      run: |
-        echo "${{ secrets.ANDROID_RELEASE_KEYSTORE }}" > src/Client/App/TodoTemplate.keystore.base64
-        certutil -decode src/Client/App/TodoTemplate.keystore.base64 > src/Client/App/TodoTemplate.keystore
+      uses: timheuer/base64-to-file@v1
+      with:
+          fileName: 'src/Client/App/TodoTemplate.keystore'
+          encodedString: ${{ secrets.ANDROID_RELEASE_KEYSTORE }}
 
     - name: Update appsettings.json api server address
       uses: jossef/action-set-json-field@v2
