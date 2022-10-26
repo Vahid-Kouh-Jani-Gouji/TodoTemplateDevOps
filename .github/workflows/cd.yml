@@ -128,41 +128,41 @@ jobs:
   #      name: android-bundles
   #      path: src/Client/App/bin/release/net7.0-android/*-Signed.*
 
-  build-blazor-hybrid-maccatalyst:
-    name: build blazor hybrid (maccatalyst)
-    runs-on: macos-latest
+  #build-blazor-hybrid-maccatalyst:
+  #  name: build blazor hybrid (maccatalyst)
+  #  runs-on: macos-latest
 
-    steps:
+  #  steps:
     
-    - name: Checkout source code
-      uses: actions/checkout@v3
+  #  - name: Checkout source code
+  #    uses: actions/checkout@v3
     
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        global-json-file: src/global.json
+  #  - name: Setup .NET
+  #    uses: actions/setup-dotnet@v3
+  #    with:
+  #      global-json-file: src/global.json
 
-    - name: Update appsettings.json api server address
-      uses: microsoft/variable-substitution@v1 
-      with:
-        files: 'src/Client/Shared/wwwroot/appsettings.json'
-      env:
-        ApiServerAddress: ${{ env.API_SERVER_ADDRESS }}
+  #  - name: Update appsettings.json api server address
+  #    uses: microsoft/variable-substitution@v1 
+  #    with:
+  #      files: 'src/Client/Shared/wwwroot/appsettings.json'
+  #    env:
+  #      ApiServerAddress: ${{ env.API_SERVER_ADDRESS }}
 
-    - name: Restore workloads
-      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-maccatalyst
+  #  - name: Restore workloads
+  #    run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-maccatalyst
 
-    - name: Build (To generate CSS/JS files)
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:CreatePackage=true -f net7.0-maccatalyst
+  #  - name: Build (To generate CSS/JS files)
+  #    run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:CreatePackage=true -f net7.0-maccatalyst
 
-    - name: Build pkg
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:CreatePackage=true -f net7.0-maccatalyst
+  #  - name: Build pkg
+  #    run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:CreatePackage=true -f net7.0-maccatalyst
 
-    - name: Upload artifact for deployment job
-      uses: actions/upload-artifact@v2
-      with:
-        name: mac-pkg
-        path: src/Client/App/bin/release/net7.0-maccatalyst/*.pkg
+  #  - name: Upload artifact for deployment job
+  #    uses: actions/upload-artifact@v2
+  #    with:
+  #      name: mac-pkg
+  #      path: src/Client/App/bin/release/net7.0-maccatalyst/*.pkg
 
   build-blazor-hybrid-iOS:
     name: build blazor hybrid (iOS)
@@ -198,4 +198,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: android-bundles
-        path: src/Client/App/bin/release/net7.0-ios/*.ipa
+        path: src/Client/App/bin/release/net7.0-ios
