@@ -80,7 +80,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: bundles
-        path: src/Client/App/bin/release/net7.0-windows10.0.19041.0/win-x64
+        path: src/Client/App/bin/release/net7.0-windows10.0.19041.0/win10-x64
 
   #build-blazor-hybrid-android:
   #  name: build blazor hybrid (android)
