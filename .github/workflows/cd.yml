@@ -71,16 +71,16 @@ jobs:
       run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-windows10.0.19041.0
 
     - name: Build (To generate CSS/JS files)
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:WindowsPackageType=None /P:RuntimeIdentifier=win-x86 -f net7.0-windows10.0.19041.0
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:WindowsPackageType=None /P:SelfContained=true /P:WindowsAppSDKSelfContained=true /P:GenerateAppxPackageOnBuild=false -f net7.0-windows10.0.19041.0
 
     - name: Build exe
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:WindowsPackageType=None /P:RuntimeIdentifier=win-x86 -f net7.0-windows10.0.19041.0
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:WindowsPackageType=None /P:SelfContained=true /P:WindowsAppSDKSelfContained=true /P:GenerateAppxPackageOnBuild=false -f net7.0-windows10.0.19041.0
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
         name: bundles
-        path: src/Client/App/bin/release/net7.0-windows10.0.19041.0/win-x86/**/*.*
+        path: src/Client/App/bin/release/net7.0-windows10.0.19041.0/win-x64
 
   #build-blazor-hybrid-android:
   #  name: build blazor hybrid (android)
