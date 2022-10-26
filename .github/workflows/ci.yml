@@ -1,5 +1,8 @@
 name: TodoTemplate CI
 
+env:
+  WEB_APP_DEPLOYMENT_TYPE: 'SSR' # You can choose either Static, DefaultDeploymentType, PWA or SSR
+
 on:
   workflow_dispatch:
   push:
@@ -22,7 +25,7 @@ jobs:
         global-json-file: src/global.json
       
     - name: Build
-      run: dotnet build src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:Configuration=Release
+      run: dotnet build src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:Configuration=Release /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}"
 
   build-blazor-hybrid-android:
     name: build blazor hybrid (android)
@@ -125,4 +128,4 @@ jobs:
       run: dotnet workload restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:BlazorMode=BlazorWebAssembly
       
     - name: Build
-      run: dotnet build src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:Configuration=Release
+      run: dotnet build src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:Configuration=Release /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}"

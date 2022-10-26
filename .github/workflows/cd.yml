@@ -1,6 +1,7 @@
 name: TodoTemplate CD
 
 env:
+  WEB_APP_DEPLOYMENT_TYPE: 'SSR' # You can choose either Static, DefaultDeploymentType, PWA or SSR
   API_SERVER_ADDRESS: 'https://todo.bitplatform.dev/'
 
 on:
@@ -13,37 +14,37 @@ permissions:
 
 jobs:
 
-  #build-blazor-api-wasm:
-  #  name: build blazor api + web assembly
-  #  runs-on: ubuntu-latest
+  build-blazor-api-wasm:
+    name: build blazor api + web assembly
+    runs-on: ubuntu-latest
 
-  #  steps:
+    steps:
     
-  #  - name: Checkout source code
-  #    uses: actions/checkout@v3
+    - name: Checkout source code
+      uses: actions/checkout@v3
     
-  #  - name: Setup .NET
-  #    uses: actions/setup-dotnet@v3
-  #    with:
-  #      global-json-file: src/global.json
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        global-json-file: src/global.json
 
-  #  - name: Switch to blazor web assembly
-  #    run:  sed -i 's/Microsoft.NET.Sdk.Web/Microsoft.NET.Sdk.BlazorWebAssembly/g' src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
+    - name: Switch to blazor web assembly
+      run:  sed -i 's/Microsoft.NET.Sdk.Web/Microsoft.NET.Sdk.BlazorWebAssembly/g' src/Client/Web/TodoTemplateDevOps.Client.Web.csproj
 
-  #  - name: Restore workloads
-  #    run: dotnet workload restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType=SSR
+    - name: Restore workloads
+      run: dotnet workload restore src/Client/Web/TodoTemplateDevOps.Client.Web.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}"
       
-  #  - name: Build (To generate CSS/JS files)
-  #    run: dotnet build src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType=SSR /P:Configuration=Release
+    - name: Build (To generate CSS/JS files)
+      run: dotnet build src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}" /P:Configuration=Release
 
-  #  - name: Publish
-  #    run: dotnet publish src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType=SSR /P:Configuration=Release -o ${{env.DOTNET_ROOT}}/myapp
+    - name: Publish
+      run: dotnet publish src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}" /P:Configuration=Release -o ${{env.DOTNET_ROOT}}/myapp
 
-  #  - name: Upload artifact for deployment job
-  #    uses: actions/upload-artifact@v3
-  #    with:
-  #      name: .net-app
-  #      path: ${{env.DOTNET_ROOT}}/myapp
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v3
+      with:
+        name: .net-app
+        path: ${{env.DOTNET_ROOT}}/myapp
 
   build-blazor-hybrid-android:
     name: build blazor hybrid (android)
@@ -79,10 +80,10 @@ jobs:
       run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:RunAOTCompilation=false -f net7.0-android
 
     - name: Build apk
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:AndroidKeyStore=true /P:AndroidSigningKeyStore=TodoTemplate.keystore /P:AndroidSigningKeyAlias=TodoTemplate /P:AndroidSigningKeyPass="${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}" /P:AndroidSigningStorePass="${{ secrets.ANDROID_RELEASE_SIGNING_PASSWORD }}" -f net7.0-android
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:AndroidKeyStore=true /P:AndroidSigningKeyStore=src/Client/App/TodoTemplate.keystore /P:AndroidSigningKeyAlias=TodoTemplate /P:AndroidSigningKeyPass="${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}" /P:AndroidSigningStorePass="${{ secrets.ANDROID_RELEASE_SIGNING_PASSWORD }}" -f net7.0-android
 
     - name: Build aab
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:AndroidPackageFormat=aab /P:AndroidSigningKeyStore=TodoTemplate.keystore /P:AndroidSigningKeyAlias=TodoTemplate /P:AndroidSigningKeyPass="${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}" /P:AndroidSigningStorePass="${{ secrets.ANDROID_RELEASE_SIGNING_PASSWORD }}" -f net7.0-android
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:AndroidPackageFormat=aab /P:AndroidSigningKeyStore=src/Client/App/TodoTemplate.keystore /P:AndroidSigningKeyAlias=TodoTemplate /P:AndroidSigningKeyPass="${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}" /P:AndroidSigningStorePass="${{ secrets.ANDROID_RELEASE_SIGNING_PASSWORD }}" -f net7.0-android
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
