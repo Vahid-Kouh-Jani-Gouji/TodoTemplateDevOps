@@ -162,4 +162,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: mac-pkg
-        path: src/Client/App/bin/release/net7.0-maccatalyst
+        path: src/Client/App/bin/release/net7.0-maccatalyst/*.pkg
