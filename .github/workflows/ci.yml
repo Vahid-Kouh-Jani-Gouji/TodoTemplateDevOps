@@ -82,7 +82,7 @@ jobs:
         global-json-file: src/global.json
 
     - name: Restore workloads
-      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-ios --temp-dir ~/.nuget/packages
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-ios
 
     - name: Build
       run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-ios

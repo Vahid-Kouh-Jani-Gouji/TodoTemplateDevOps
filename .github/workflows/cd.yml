@@ -186,16 +186,16 @@ jobs:
         ApiServerAddress: ${{ env.API_SERVER_ADDRESS }}
 
     - name: Restore workloads
-      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-ios --temp-dir ~/.nuget/packages
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-ios
 
     - name: Build (To generate CSS/JS files)
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-ios
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:RuntimeIdentifier=ios-arm64 -f net7.0-ios
 
     - name: Build ipa
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:ArchiveOnBuild=true -f net7.0-ios
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:RuntimeIdentifier=ios-arm64 /P:ArchiveOnBuild=true -f net7.0-ios
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
-        name: android-bundles
+        name: iOS-bundles
         path: src/Client/App/bin/release/net7.0-ios
