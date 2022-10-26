@@ -38,13 +38,13 @@ jobs:
       run: dotnet build src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}" /P:Configuration=Release
 
     - name: Publish
-      run: dotnet publish src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}" /P:Configuration=Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish src/Server/Api/TodoTemplateDevOps.Server.Api.csproj /P:BlazorMode=BlazorWebAssembly /P:WebAppDeploymentType="${{ env.WEB_APP_DEPLOYMENT_TYPE }}" /P:Configuration=Release -o ${{env.DOTNET_ROOT}}/api-web
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
       with:
-        name: .net-app
-        path: ${{env.DOTNET_ROOT}}/myapp
+        name: api-web
+        path: ${{env.DOTNET_ROOT}}/api-web
 
   build-blazor-hybrid-windows:
     name: build blazor hybrid (windows)
@@ -79,7 +79,7 @@ jobs:
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
-        name: bundles
+        name: win-exe
         path: src/Client/App/bin/release/net7.0-windows10.0.19041.0/win10-x64
 
   build-blazor-hybrid-android:
@@ -125,5 +125,5 @@ jobs:
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
-        name: bundles
+        name: android-bundles
         path: src/Client/App/bin/release/net7.0-android/*-Signed.*

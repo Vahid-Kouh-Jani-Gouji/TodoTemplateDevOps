@@ -62,10 +62,10 @@ jobs:
         global-json-file: src/global.json
 
     - name: Restore workloads
-      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-windows10.0.19041
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-windows10.0.19041.0
 
     - name: Build
-      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-windows10.0.19041
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-windows10.0.19041.0
 
   build-blazor-hybrid-iOS:
     name: build blazor hybrid (iOS)
