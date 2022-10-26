@@ -163,3 +163,39 @@ jobs:
       with:
         name: mac-pkg
         path: src/Client/App/bin/release/net7.0-maccatalyst/*.pkg
+
+  build-blazor-hybrid-iOS:
+    name: build blazor hybrid (iOS)
+    runs-on: macos-12
+
+    steps:
+    
+    - name: Checkout source code
+      uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        global-json-file: src/global.json
+
+    - name: Update appsettings.json api server address
+      uses: microsoft/variable-substitution@v1 
+      with:
+        files: 'src/Client/Shared/wwwroot/appsettings.json'
+      env:
+        ApiServerAddress: ${{ env.API_SERVER_ADDRESS }}
+
+    - name: Restore workloads
+      run: dotnet workload restore src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid -f net7.0-ios --temp-dir ~/.nuget/packages
+
+    - name: Build (To generate CSS/JS files)
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release -f net7.0-ios
+
+    - name: Build ipa
+      run: dotnet build src/Client/App/TodoTemplateDevOps.Client.App.csproj /P:BlazorMode=BlazorHybrid /P:Configuration=Release /P:ArchiveOnBuild=true -f net7.0-ios
+
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v2
+      with:
+        name: android-bundles
+        path: src/Client/App/bin/release/net7.0-ios/*.ipa
