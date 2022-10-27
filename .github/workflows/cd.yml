@@ -43,13 +43,19 @@ jobs:
     - name: Build migrations bundle
       run: |
         dotnet tool install --global dotnet-ef --version 7.0.0-rc.2.22472.11
-        dotnet ef migrations bundle --self-contained -r linux-x64
+        dotnet ef migrations bundle --self-contained -r linux-x64 --project src/Server/Api/TodoTemplateDevOps.Server.Api.csproj
 
     - name: Upload ef migrations bundle
       uses: actions/upload-artifact@v3
       with:
         name: migrations-bundle
-        path: ${{env.DOTNET_ROOT}}/api-web
+        path: src/Server/Api/efbundle
+
+    - name: Upload ef migrations bundle 2
+      uses: actions/upload-artifact@v3
+      with:
+        name: migrations-bundle2
+        path: efbundle
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
