@@ -49,12 +49,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: migrations-bundle
-        path: src/Server/Api/efbundle
-
-    - name: Upload ef migrations bundle 2
-      uses: actions/upload-artifact@v3
-      with:
-        name: migrations-bundle2
         path: efbundle
 
     - name: Upload artifact
