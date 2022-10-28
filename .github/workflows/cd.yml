@@ -102,12 +102,10 @@ jobs:
           path: migrations
 
       - name: Run migrations
-        env:
-            CONNECTION_STRING: ${{ secrets.API_CONNECTION_STRING }}
         run: |
             cd migrations
             chmod +x efbundle
-            ./efbundle --connection "${{CONNECTION_STRING}}"
+            ./efbundle --connection "${{ secrets.API_CONNECTION_STRING }}"
 
   #build-blazor-hybrid-windows:
   #  name: build blazor hybrid (windows)
