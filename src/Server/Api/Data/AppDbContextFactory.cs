@@ -8,7 +8,8 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-        optionsBuilder.UseSqlServer(args[1]);
+        if (args.Length > 1)
+            optionsBuilder.UseSqlServer(args[1]);
 
         return new AppDbContext(optionsBuilder.Options);
     }
