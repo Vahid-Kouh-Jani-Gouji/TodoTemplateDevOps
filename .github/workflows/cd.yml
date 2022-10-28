@@ -93,11 +93,34 @@ jobs:
         with:
           name: migrations-bundle
 
+      - name: Update appsettings.json
+        uses: microsoft/variable-substitution@v1 
+        with:
+          files: 'appsettings.json'
+        env:
+          ConnectionStrings.SqlServerConnectionString: ${{ secrets.API_CONNECTION_STRING }}
+          AppSettings.JwtSettings.IdentityCertificatePassword: ${{ secrets.API_IDENTITY_CERTIFICATE_PASSWORD }}
+
+      - name: Extract identity certificate from env
+        uses: timheuer/base64-to-file@v1
+        with:
+            fileDir: './'
+            fileName: 'IdentityCertificate.pfx'
+            encodedString: ${{ secrets.API_IDENTITY_CERTIFICATE_BASE64 }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-web-bundle-final
+          path: ./
+
       - name: Run migrations
         run: |
             chmod +x efbundle
             ./efbundle --connection "${{ secrets.API_CONNECTION_STRING }}" --verbose
             rm efbundle
+
+      # Deploy to Azure App Service
 
   #build-blazor-hybrid-windows:
   #  name: build blazor hybrid (windows)
