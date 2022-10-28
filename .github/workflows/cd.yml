@@ -101,6 +101,10 @@ jobs:
           ConnectionStrings.SqlServerConnectionString: ${{ secrets.API_CONNECTION_STRING }}
           AppSettings.JwtSettings.IdentityCertificatePassword: ${{ secrets.API_IDENTITY_CERTIFICATE_PASSWORD }}
 
+      - name: Delete appsettings.json
+        run: |
+            rm appsettings.json
+
       - name: Extract identity certificate from env
         uses: timheuer/base64-to-file@v1
         with:
@@ -117,6 +121,7 @@ jobs:
       - name: Run migrations
         run: |
             chmod +x efbundle
+            rm efbundle
             ./efbundle --connection "${{ secrets.API_CONNECTION_STRING }}" --verbose
             rm efbundle
 
