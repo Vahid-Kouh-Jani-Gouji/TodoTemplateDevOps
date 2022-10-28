@@ -107,7 +107,7 @@ jobs:
         run: |
             cd migrations
             chmod +x efbundle
-            ./efbundle --connection $CONNECTION_STRING
+            ./efbundle --connection "$CONNECTION_STRING"
 
   #build-blazor-hybrid-windows:
   #  name: build blazor hybrid (windows)
