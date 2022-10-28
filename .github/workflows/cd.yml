@@ -105,7 +105,7 @@ jobs:
         run: |
             cd migrations
             chmod +x efbundle
-            ./efbundle --connection "${{ secrets.API_CONNECTION_STRING }}"
+            ./efbundle --connection "${{ secrets.API_CONNECTION_STRING }}" --verbose
 
   #build-blazor-hybrid-windows:
   #  name: build blazor hybrid (windows)
