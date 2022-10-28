@@ -87,25 +87,17 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: api-web-bundle
-          path: api-web
 
       - name: Retrieve migrations bundle
         uses: actions/download-artifact@v2
         with:
           name: migrations-bundle
-          path: migrations
-
-      - name: Retrieve migrations bundle
-        uses: actions/download-artifact@v2
-        with:
-          name: migrations-bundle
-          path: migrations
 
       - name: Run migrations
         run: |
-            cd migrations
             chmod +x efbundle
             ./efbundle --connection "${{ secrets.API_CONNECTION_STRING }}" --verbose
+            rm efbundle
 
   #build-blazor-hybrid-windows:
   #  name: build blazor hybrid (windows)
